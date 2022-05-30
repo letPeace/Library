@@ -1,20 +1,22 @@
 package model.generators.books;
 
+import model.entities.books.Book;
 import model.entities.books.RussianLiterature;
 import model.parsers.books.RussianLiteratureParser;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class RussianLiteratureGenerator implements BookGenerator{
 
-    private ArrayList<RussianLiterature> russianLiteratures;
+    private HashSet<Book> russianLiteratures;
 
-    public ArrayList<RussianLiterature> getRussianLiteratures() {
+    public HashSet<Book> getBooks() {
         return russianLiteratures;
     }
 
     public RussianLiteratureGenerator(){
-        this.russianLiteratures = new ArrayList<>();
+        this.russianLiteratures = new HashSet<>();
     }
 
     @Override
@@ -32,8 +34,8 @@ public class RussianLiteratureGenerator implements BookGenerator{
     }
 
     @Override
-    public void addNewBook(String[] args){
-        getRussianLiteratures().add(new RussianLiterature(args[0], args[1], args[2], args[3]));
+    public Book generateBook(String[] args){
+        return new RussianLiterature(args[0], args[1], args[2], args[3]);
     }
 
     public ArrayList<String> getAuthors(){

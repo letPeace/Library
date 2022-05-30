@@ -41,7 +41,7 @@ public abstract class Human{
         getBooks().add(book);
     }
 
-    public void addBooks(ArrayList<Book> books){
+    public void addBooks(HashSet<Book> books){
         for(Book book : books){
             addBook(book);
         }

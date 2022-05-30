@@ -1,5 +1,6 @@
 package model.entities;
 
+import model.entities.humans.Human;
 import model.entities.humans.Professor;
 import model.entities.humans.Student;
 
@@ -7,47 +8,47 @@ import java.util.HashSet;
 
 public class Library{
 
-    private HashSet<Student> students;
-    private HashSet<Professor> professors;
+    private HashSet<Human> students;
+    private HashSet<Human> professors;
 
     public Library(){
         this.students = new HashSet<>();
         this.professors = new HashSet<>();
     }
 
-    public HashSet<Student> getStudents() {
+    public HashSet<Human> getStudents() {
         return students;
     }
 
-    public void setStudents(HashSet<Student> students) {
+    public void setStudents(HashSet<Human> students) {
         this.students = students;
     }
 
-    public HashSet<Professor> getProfessors() {
+    public HashSet<Human> getProfessors() {
         return professors;
     }
 
-    public void setProfessors(HashSet<Professor> professors) {
+    public void setProfessors(HashSet<Human> professors) {
         this.professors = professors;
     }
 
     //
 
-    public void addStudent(Student student){
+    public void addStudent(Human student){
         getStudents().add(student);
     }
 
-    public void addProfessor(Professor professor){
+    public void addProfessor(Human professor){
         getProfessors().add(professor);
     }
 
     //
 
-    public void removeStudent(Student student){
+    public void removeStudent(Human student){
         getStudents().remove(student);
     }
 
-    public void removeProfessor(Professor professor){
+    public void removeProfessor(Human professor){
         getProfessors().remove(professor);
     }
 

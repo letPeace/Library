@@ -1,27 +1,71 @@
 package model.generators.humans;
 
+import model.entities.books.Book;
+import model.entities.books.BooksNumber;
+import model.entities.books.BooksNumber;
 import model.entities.humans.Human;
+import model.generators.Generator;
+import model.generators.books.EnglishLiteratureGenerator;
+import model.generators.books.FictionGenerator;
+import model.generators.books.RussianLiteratureGenerator;
 import model.generators.sub.RandomIntegerGenerator;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
-public interface HumanGenerator extends RandomIntegerGenerator{
+public interface HumanGenerator extends RandomIntegerGenerator, Generator{
+
+    HashSet<Human> get();
 
     default void generate(int humansNumber){
-        ArrayList<String> firstNames = getFirstNames();
-        ArrayList<String> lastNames = getLastNames();
+        generateWithBooks(humansNumber, new BooksNumber(0,0,0));
+    }
+
+    default void generateWithBooks(int humansNumber, BooksNumber booksNumber){
         for(int i=1; i<=humansNumber; i++){
-            String firstName = firstNames.get(getRandomIndex(firstNames));
-            String lastName = getCorrectLastName(firstName, lastNames.get(getRandomIndex(lastNames)));
-            if(this instanceof ProfessorGenerator){
-                String secondName = getSecondName(firstName);
-                addNewHuman(firstName, secondName, lastName);
-            }
-            else addNewHuman(firstName, lastName);
+            generateWithBooks(booksNumber);
         }
     }
 
-    void addNewHuman(String... names);
+    default void generateWithBooks(BooksNumber booksNumber){
+        Human human = generateHuman();
+        addNewHuman(human);
+        //
+        FictionGenerator fictionGenerator = new FictionGenerator();
+        RussianLiteratureGenerator russianLiteratureGenerator = new RussianLiteratureGenerator();
+        EnglishLiteratureGenerator englishLiteratureGenerator = new EnglishLiteratureGenerator();
+        //
+        fictionGenerator.generate(booksNumber.getFictions());
+        russianLiteratureGenerator.generate(booksNumber.getRussianLiteratures());
+        englishLiteratureGenerator.generate(booksNumber.getEnglishLiteratures());
+        //
+        HashSet<Book> fictions = fictionGenerator.getBooks();
+        HashSet<Book> russianLiteratures = russianLiteratureGenerator.getBooks();
+        HashSet<Book> englishLiteratures = englishLiteratureGenerator.getBooks();
+        //
+        human.addBooks(fictions);
+        human.addBooks(russianLiteratures);
+        human.addBooks(englishLiteratures);
+    }
+
+    default void generateWithBooks(int humansNumber, int booksNumber){
+        for(int i=1; i<=humansNumber; i++){
+            int fictionsNumber = getRandomInteger(booksNumber);
+            int russianLiteraturesNumber = getRandomInteger(booksNumber-fictionsNumber);
+            int englishLiteraturesNumber = getRandomInteger(booksNumber-(fictionsNumber+russianLiteraturesNumber));
+            generateWithBooks(new BooksNumber(fictionsNumber, russianLiteraturesNumber, englishLiteraturesNumber));
+        }
+    }
+
+    String[] generateArguments();
+
+    Human generateHuman(String[] args);
+
+    default Human generateHuman(){
+        return generateHuman(generateArguments());
+    }
+
+    void addNewHuman(Human human);
 
     ArrayList<String> getFirstNames();
 

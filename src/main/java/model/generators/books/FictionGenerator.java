@@ -1,20 +1,22 @@
 package model.generators.books;
 
+import model.entities.books.Book;
 import model.entities.books.Fiction;
 import model.parsers.books.FictionParser;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class FictionGenerator implements BookGenerator{
 
-    private ArrayList<Fiction> fictions;
+    private HashSet<Book> fictions;
 
-    public ArrayList<Fiction> getFictions() {
+    public HashSet<Book> getBooks() {
         return fictions;
     }
 
     public FictionGenerator() {
-        this.fictions = new ArrayList<>();
+        this.fictions = new HashSet<>();
     }
 
     @Override
@@ -27,8 +29,8 @@ public class FictionGenerator implements BookGenerator{
     }
 
     @Override
-    public void addNewBook(String[] args){
-        getFictions().add(new Fiction(args[0], args[1]));
+    public Book generateBook(String[] args){
+        return new Fiction(args[0], args[1]);
     }
 
     public ArrayList<String> getAuthors(){
