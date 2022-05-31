@@ -11,9 +11,9 @@ import java.util.HashSet;
 
 public class StudentGenerator implements HumanGenerator{
 
-    private HashSet<Human> students;
+    private HashSet<Object> students;
 
-    public HashSet<Human> get() {
+    public HashSet<Object> get() {
         return students;
     }
 
@@ -32,12 +32,7 @@ public class StudentGenerator implements HumanGenerator{
     }
 
     @Override
-    public void addNewHuman(Human human){
-        get().add(human);
-    }
-
-    @Override
-    public Human generateHuman(String[] args){
+    public Human generate(String[] args){
         return new Student(args[0], args[1]);
     }
 

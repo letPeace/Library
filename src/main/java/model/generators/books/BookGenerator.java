@@ -9,26 +9,27 @@ import java.util.HashSet;
 
 public interface BookGenerator extends RandomIntegerGenerator, Generator{
 
-    HashSet<Book> getBooks();
-
     default void generate(int booksNumber){
         for(int i=1; i<=booksNumber; i++){
-            Book book = generateBook();
-            addNewBook(book);
+            Book book = (Book) generate();
+            addNew(book);
         }
     }
 
-    String[] generateArguments();
-
-    default void addNewBook(Book book){
-        getBooks().add(book);
+    default Book convert(Object book){
+        return (Book) book;
     }
 
-    Book generateBook(String[] args);
-
-    default Book generateBook(){
-        return generateBook(generateArguments());
+    default HashSet<Book> convert(){
+        HashSet<Object> books = get();
+        HashSet<Book> booksConverted = new HashSet<>();
+        for(Object book : books){
+            booksConverted.add(convert(book));
+        }
+        return booksConverted;
     }
+
+    // GET
 
     ArrayList<String> getAuthors();
 

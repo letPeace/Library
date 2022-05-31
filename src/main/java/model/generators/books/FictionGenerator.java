@@ -9,9 +9,9 @@ import java.util.HashSet;
 
 public class FictionGenerator implements BookGenerator{
 
-    private HashSet<Book> fictions;
+    private HashSet<Object> fictions;
 
-    public HashSet<Book> getBooks() {
+    public HashSet<Object> get() {
         return fictions;
     }
 
@@ -29,7 +29,7 @@ public class FictionGenerator implements BookGenerator{
     }
 
     @Override
-    public Book generateBook(String[] args){
+    public Book generate(String[] args){
         return new Fiction(args[0], args[1]);
     }
 

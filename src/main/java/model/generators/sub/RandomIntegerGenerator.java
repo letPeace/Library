@@ -12,4 +12,8 @@ public interface RandomIntegerGenerator{
         return (int)(Math.random()*edge);
     }
 
+    default int getRandomIntegerIncludingEdge(int edge){
+        return getRandomInteger(edge+1);
+    }
+
 }

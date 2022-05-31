@@ -1,8 +1,6 @@
 package model.entities;
 
 import model.entities.humans.Human;
-import model.entities.humans.Professor;
-import model.entities.humans.Student;
 
 import java.util.HashSet;
 
@@ -52,4 +50,14 @@ public class Library{
         getProfessors().remove(professor);
     }
 
+    //
+
+
+    @Override
+    public String toString() {
+        return "Library{" +
+                "\nstudents=" + students +
+                "\n, professors=" + professors +
+                '}';
+    }
 }
